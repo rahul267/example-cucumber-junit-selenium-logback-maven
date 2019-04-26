@@ -1,3 +1,4 @@
+import com.google.common.io.BaseEncoding;
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
@@ -5,8 +6,12 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class TestBase {
+
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private static WebDriver driver;
 
@@ -25,7 +30,7 @@ public class TestBase {
         return driver;
     }
 
-    @After(order = 1)
+    @After
     public void tearDown(Scenario scenario) {
         if (scenario.isFailed()) {
             byte[] screenshot = ((TakesScreenshot) getDriver()).getScreenshotAs(OutputType.BYTES);
